@@ -57,9 +57,9 @@ jobs:
           contains(github.ref, 'develop-backend')
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile-dev -t ${{ secrets.DOCKER_USERNAME }}/cicd_test:latest .
+          docker build -f Dockerfile-dev -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }} .
           docker images
-          docker push ${{ secrets.DOCKER_USERNAME }}/cicd_test:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}
 
       ## deploy to develop
       - name: Deploy to dev
@@ -76,6 +76,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
             sudo docker ps
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cicd_test
-            sudo docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/cicd_test
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}
+            sudo docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}
+            sudo docker-compose up -d
             sudo docker image prune -f
