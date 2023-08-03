@@ -75,7 +75,9 @@ jobs:
           port: 22
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
+            cd ~/test/backend/
             sudo docker ps
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}
+            sudo docker rm -f $(sudo docker ps -qa)
             sudo docker-compose up -d
             sudo docker image prune -f
