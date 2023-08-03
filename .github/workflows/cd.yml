@@ -2,7 +2,9 @@ name: CD using github actions & docker
 
 on:
   push:
-    branches: [ "master", "develop-backend" ]
+    branches:
+      - master
+      - develop-backend
 
 permissions:
   contents: read
