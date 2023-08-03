@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk17:latest
+FROM openjdk:17-oracle
 
 ARG JAR_FILE=build/libs/*.jar
 
