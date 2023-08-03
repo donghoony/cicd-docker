@@ -12,7 +12,6 @@ permissions:
 jobs:
   CI-CD:
     runs-on: ubuntu-latest
-    working-directory: ./backend/
     steps:
 
       - uses: actions/checkout@v3
@@ -37,8 +36,8 @@ jobs:
           contains(github.ref, 'master') ||
           contains(github.ref, 'develop-backend')
         run: |
-          mkdir ./src/main/resources # resources 폴더 생성
-          cd ./src/main/resources # resources 폴더로 이동
+          mkdir ./backend/src/main/resources # resources 폴더 생성
+          cd ./backend/src/main/resources # resources 폴더로 이동
           touch ./application.yml # application.yml 생성
           echo "${{ secrets.YML }}" > ./application.yml # github actions에서 설정한 값을 application.yml 파일에 쓰기
         shell: bash
@@ -46,6 +45,7 @@ jobs:
       # gradle build
       - name: Build with Gradle
         run: ./gradlew build -x test
+        working-directory: ./backend/
 
       # docker build & push to develop
       - name: Docker build & push to dev
