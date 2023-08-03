@@ -10,6 +10,7 @@ permissions:
 jobs:
   CI-CD:
     runs-on: ubuntu-latest
+    working-directory: ./backend/
     steps:
 
       - uses: actions/checkout@v3
