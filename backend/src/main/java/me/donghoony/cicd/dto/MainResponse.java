@@ -1,10 +1,9 @@
 package me.donghoony.cicd.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
 public class MainResponse {
+    public MainResponse(String message) {
+        this.message = message;
+    }
+
     private String message;
 }
